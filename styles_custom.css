@@ -9,6 +9,34 @@
 }
 
 /* custom */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #f1f1f1; */
+  background: var(--color-black);
+  border-radius: 4px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  /* background: #888; */
+  background: var(--color-grey);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Example of applying custom scrollbar to all elements */
+* {
+  scrollbar-width: thin; /* "auto" or "thin" to show scrollbar */
+  scrollbar-color: #888 #f1f1f1; /* thumb and track colors */
+}
 
 .lpc-section,
 .lc-features__base-wrapper {
@@ -246,6 +274,14 @@ body {
   padding: 40px 32px;
   font-size: 20px;
 }
+
+.lc-features__scrollable::-webkit-scrollbar-track {
+  background: rgba(40, 40, 40, 0);
+}
+.lc-features__scrollable::-webkit-scrollbar-thumb {
+  background: rgba(40, 40, 40, 0);
+}
+
 #cards .lc-features__image-el {
   width: 100% !important;
 }
