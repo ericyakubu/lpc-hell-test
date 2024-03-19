@@ -1,6 +1,7 @@
 :root {
   --color-background: #282828;
   --color-green: #c2f23c;
+  --color-blue: #0080ff;
   --color-white: #fff;
   --color-black: #000;
   --color-grey: #a6abb3;
@@ -10,32 +11,21 @@
 
 /* custom */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  /* background: #f1f1f1; */
-  background: var(--color-black);
+  background: var(--color-background);
   border-radius: 4px;
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  /* background: #888; */
-  background: var(--color-grey);
+  background: var(--color-green);
   border-radius: 4px;
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-/* Example of applying custom scrollbar to all elements */
-* {
-  scrollbar-width: thin; /* "auto" or "thin" to show scrollbar */
-  scrollbar-color: #888 #f1f1f1; /* thumb and track colors */
+  cursor: pointer;
 }
 
 .lpc-section,
@@ -162,9 +152,10 @@ body {
   border: 3px solid rgb(194, 242, 60, 1) !important;
 }
 .lc-tabs__icon {
-  width: 300px;
-  max-width: 100%;
+  max-width: 300px;
+  width: 100%;
   height: 200px;
+  padding: 0 !important;
 }
 .lc-tabs__arrow {
   display: none;
@@ -197,6 +188,24 @@ body {
 }
 #tabs-content {
   margin-top: -36px;
+}
+#tabs-content .lc-features__description {
+  padding-top: 5px;
+  height: fit-content;
+}
+#tabs .lc-features__item-wrap_feature-back {
+  padding: 0;
+  min-height: fit-content;
+}
+
+.active-tabs-1 > section {
+  background: var(--color-white) !important;
+}
+.active-tabs-2 > section {
+  background: var(--color-green) !important;
+}
+.active-tabs-3 > section {
+  background: var(--color-blue) !important;
 }
 
 @media screen and (max-width: 767px) {
@@ -268,18 +277,17 @@ body {
 .lc-features__image-el {
   height: 240px;
 }
-.lc-features__scrollable {
+.lc-features__back-side {
   background-color: var(--color-white);
   border-radius: var(--border-radius);
   padding: 40px 32px;
   font-size: 20px;
 }
-
 .lc-features__scrollable::-webkit-scrollbar-track {
-  background: rgba(40, 40, 40, 0);
+  background: #ececec;
 }
 .lc-features__scrollable::-webkit-scrollbar-thumb {
-  background: rgba(40, 40, 40, 0);
+  background: var(--color-grey);
 }
 
 #cards .lc-features__image-el {
