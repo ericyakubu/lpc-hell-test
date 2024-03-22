@@ -14,6 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const burgerMenuList = document.querySelector(
     ".lc-header-lpc-burger__menu_align_right"
   );
+  const burgerIconWrapper = document.querySelector(
+    ".lc-header-lpc-burger__burger-icon"
+  );
+  const burgerImg = document.querySelector(".lc-picture__thumbnail");
+
+  burgerImg.classList.remove("lc-picture__thumbnail_transparent");
+  burgerImg.classList.add("burger-img");
+
+  burgerIconWrapper.innerHTML = "";
+  burgerIconWrapper.appendChild(burgerImg);
 
   // tabs
   const tabs = document.querySelectorAll(".lc-tabs__tab_theme_textWithIcon");
@@ -24,14 +34,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const faqHeads = document.querySelectorAll(".lc-spoiler-item__header");
   const faqTexts = document.querySelectorAll(".lc-spoiler-item");
 
+  // const arrowImg = document.querySelector('img[alt="faq-arrow"]');
+
+  const svgs = document.querySelectorAll(".lc-spoiler-item__arrow svg");
+
   faqTexts.forEach((text) => text.classList.remove("lc-spoiler-item_open"));
   tabItems.forEach((item, index) => {
     if (index < 3) item.classList.add(`active-tabs-${index + 1}`);
   });
+
+  svgs.forEach((svg) => {
+    const img = document.createElement("img");
+    img.src = "./icon-faq-arrow.svg";
+
+    svg.parentNode.replaceChild(img, svg);
+  });
   // events
 
-  tabs.forEach((tab) => tab.addEventListener("click", toggleTab));
-  faqHeads.forEach((head) => head.addEventListener("click", toggleFaq));
+  tabs.forEach((tab) =>
+    tab.addEventListener("click", (e) => toggleTab(e, tabsContents, tabs))
+  );
+
+  faqHeads.forEach((head) =>
+    head.addEventListener("click", (e) => toggleFaq(e, faqTexts))
+  );
 
   window.onscroll = () => {
     if (window.scrollY > 0) {
@@ -59,36 +85,36 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("menu-open");
     });
   });
-
-  // functions
-  function toggleTab(e) {
-    const tabClicked = e.target.closest(".lc-tabs__tab_theme_textWithIcon");
-
-    if (!tabClicked) return;
-
-    const index = Array.from(tabs).indexOf(tabClicked);
-
-    tabsContents.forEach((content) => {
-      content.classList.remove("lc-tabs__content_visible");
-    });
-
-    tabsContents[index].classList.add("lc-tabs__content_visible");
-
-    tabs.forEach((tab) => {
-      tab.style.border = "3px solid rgba(40, 40, 40, 0)";
-    });
-
-    tabClicked.style.border = "3px solid rgba(194, 242, 60, 1)";
-  }
-
-  function toggleFaq(e) {
-    const faqClicked = e.target.closest(".lc-spoiler-item");
-    if (faqClicked.classList.contains("lc-spoiler-item_open"))
-      return faqClicked.classList.toggle("lc-spoiler-item_open");
-
-    faqTexts.forEach((text) => {
-      text.classList.remove("lc-spoiler-item_open");
-    });
-    faqClicked.classList.toggle("lc-spoiler-item_open");
-  }
 });
+
+// functions
+function toggleTab(e, tabsContents, tabs) {
+  const tabClicked = e.target.closest(".lc-tabs__tab_theme_textWithIcon");
+
+  if (!tabClicked) return;
+
+  const index = Array.from(tabs).indexOf(tabClicked);
+
+  tabsContents.forEach((content) => {
+    content.classList.remove("lc-tabs__content_visible");
+  });
+
+  tabsContents[index].classList.add("lc-tabs__content_visible");
+
+  tabs.forEach((tab) => {
+    tab.style.border = "3px solid rgba(40, 40, 40, 0)";
+  });
+
+  tabClicked.style.border = "3px solid rgba(194, 242, 60, 1)";
+}
+
+function toggleFaq(e, faqTexts) {
+  const faqClicked = e.currentTarget.closest(".lc-spoiler-item");
+  if (faqClicked.classList.contains("lc-spoiler-item_open"))
+    return faqClicked.classList.toggle("lc-spoiler-item_open");
+
+  faqTexts.forEach((text) => {
+    text.classList.remove("lc-spoiler-item_open");
+  });
+  faqClicked.classList.toggle("lc-spoiler-item_open");
+}
