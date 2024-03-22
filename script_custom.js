@@ -1,11 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const header = document.querySelector(".lc-header-lpc__fixed-wrapper");
-  // burger
+  handleBurger();
+  handleHeader();
+  handleTabs();
+  handleFaq();
+  handleSvgs();
+});
+
+// functions
+
+const handleSvgs = () => {
+  const svgs = document.querySelectorAll(".lc-spoiler-item__arrow svg");
+  svgs.forEach((svg) => {
+    const img = document.createElement("img");
+    img.src = "./icon-faq-arrow.svg";
+
+    svg.parentNode.replaceChild(img, svg);
+  });
+};
+const handleBurger = () => {
   const burgerLink = document.querySelectorAll(
     ".lc-navigation-menu__item_layout_vertical"
-  );
-  const burgerBtn = document.querySelector(
-    ".lc-header-lpc-burger__burger-button"
   );
   const burgerMenuWrap = document.querySelector(
     ".lc-header-lpc-burger__menu-wrapper"
@@ -25,52 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
   burgerIconWrapper.innerHTML = "";
   burgerIconWrapper.appendChild(burgerImg);
 
-  // tabs
-  const tabs = document.querySelectorAll(".lc-tabs__tab_theme_textWithIcon");
-  const tabsContents = document.querySelectorAll(".lc-tabs__content");
-  const tabItems = document.querySelectorAll(".lc-features__items");
-
-  // acordion
-  const faqHeads = document.querySelectorAll(".lc-spoiler-item__header");
-  const faqTexts = document.querySelectorAll(".lc-spoiler-item");
-
-  // const arrowImg = document.querySelector('img[alt="faq-arrow"]');
-
-  const svgs = document.querySelectorAll(".lc-spoiler-item__arrow svg");
-
-  faqTexts.forEach((text) => text.classList.remove("lc-spoiler-item_open"));
-  tabItems.forEach((item, index) => {
-    if (index < 3) item.classList.add(`active-tabs-${index + 1}`);
-  });
-
-  svgs.forEach((svg) => {
-    const img = document.createElement("img");
-    img.src = "./icon-faq-arrow.svg";
-
-    svg.parentNode.replaceChild(img, svg);
-  });
   // events
-
-  tabs.forEach((tab) =>
-    tab.addEventListener("click", (e) => toggleTab(e, tabsContents, tabs))
-  );
-
-  faqHeads.forEach((head) =>
-    head.addEventListener("click", (e) => toggleFaq(e, faqTexts))
-  );
-
-  window.onscroll = () => {
-    if (window.scrollY > 0) {
-      header.classList.add("lc-header-lpc__fixed-wrapper-active");
-    } else {
-      header.classList.remove("lc-header-lpc__fixed-wrapper-active");
-    }
-  };
-
-  burgerBtn.addEventListener("click", () => {
-    document.body.classList.add("menu-open");
-  });
-
   burgerMenu.addEventListener("click", () => {
     burgerMenuWrap.classList.add("lc-header-lpc-burger__menu-wrapper_hidden");
     burgerMenu.classList.remove("lc-header-lpc-burger__paranja_opened");
@@ -85,9 +54,36 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("menu-open");
     });
   });
-});
-
-// functions
+};
+const handleHeader = () => {
+  const header = document.querySelector(".lc-header-lpc__fixed-wrapper");
+  window.onscroll = () => {
+    if (window.scrollY > 0) {
+      header.classList.add("lc-header-lpc__fixed-wrapper-active");
+    } else {
+      header.classList.remove("lc-header-lpc__fixed-wrapper-active");
+    }
+  };
+};
+const handleTabs = () => {
+  const tabs = document.querySelectorAll(".lc-tabs__tab_theme_textWithIcon");
+  const tabsContents = document.querySelectorAll(".lc-tabs__content");
+  const tabItems = document.querySelectorAll(".lc-features__items");
+  tabs.forEach((tab) =>
+    tab.addEventListener("click", (e) => toggleTab(e, tabsContents, tabs))
+  );
+  tabItems.forEach((item, index) => {
+    if (index < 3) item.classList.add(`active-tabs-${index + 1}`);
+  });
+};
+const handleFaq = () => {
+  const faqHeads = document.querySelectorAll(".lc-spoiler-item__header");
+  const faqTexts = document.querySelectorAll(".lc-spoiler-item");
+  faqTexts.forEach((text) => text.classList.remove("lc-spoiler-item_open"));
+  faqHeads.forEach((head) =>
+    head.addEventListener("click", (e) => toggleFaq(e, faqTexts))
+  );
+};
 function toggleTab(e, tabsContents, tabs) {
   const tabClicked = e.target.closest(".lc-tabs__tab_theme_textWithIcon");
 
@@ -107,7 +103,6 @@ function toggleTab(e, tabsContents, tabs) {
 
   tabClicked.style.border = "3px solid rgba(194, 242, 60, 1)";
 }
-
 function toggleFaq(e, faqTexts) {
   const faqClicked = e.currentTarget.closest(".lc-spoiler-item");
   if (faqClicked.classList.contains("lc-spoiler-item_open"))
